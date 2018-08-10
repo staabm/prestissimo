@@ -39,7 +39,9 @@ class CurlMulti
 
         if (!$permanent || !$mh_cache) {
             $mh_cache = curl_multi_init();
-            curl_multi_setopt($mh_cache, CURLMOPT_PIPELINING, /*CURLPIPE_HTTP1 | CURLPIPE_MULTIPLEX*/ 3);
+			if (defined('CURLMOPT_PIPELINING')) {
+                curl_multi_setopt($mh_cache, CURLMOPT_PIPELINING, /*CURLPIPE_HTTP1 | CURLPIPE_MULTIPLEX*/ 3);
+			}
 
             $ch_cache = array();
             for ($i = 0; $i < self::MAX_CONNECTIONS; ++$i) {
